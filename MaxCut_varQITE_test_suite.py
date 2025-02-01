@@ -539,7 +539,7 @@ print("Running: QITEvolver Minimization\n")
 
 # Set up your QITEvolver and evolve!
 qit_evolver = QITEvolver(ham, ansatz)
-qit_evolver.evolve(num_steps=1, lr=0.1, verbose=True) # lr was 0.4
+qit_evolver.evolve(num_steps=40, lr=0.1, verbose=True) # lr was 0.4
 
 print("\nCompleted: QITEvolver Minimization\n")
 
