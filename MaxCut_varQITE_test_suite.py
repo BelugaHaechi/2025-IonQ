@@ -48,6 +48,7 @@ import matplotlib.pyplot as plt
 import random
 
 # region All Prebuilt Graph Types
+
 #-> Cycle Graph C8
 def cycle_graph_c8():
     G = nx.cycle_graph(8)
@@ -55,7 +56,7 @@ def cycle_graph_c8():
     pos = nx.circular_layout(G)
     nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=500)
     plt.title("Cycle Graph C8")
-    plt.show()
+    # plt.show()
     return G
 
 # Path Graph P16
@@ -65,7 +66,7 @@ def path_graph_p16():
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=True, node_color='lightgreen', edge_color='gray', node_size=300)
     plt.title("Path Graph P16")
-    plt.show()
+    # plt.show()
     return G
 
 #-> Complete Bipartite Graph K8,8
@@ -76,7 +77,7 @@ def complete_bipartite_graph_k88():
     nx.draw(G, pos, with_labels=True, node_color=['lightcoral'] * 8 + ['lightblue'] * 8,
             edge_color='gray', node_size=300)
     plt.title("Complete Bipartite Graph K8,8")
-    plt.show()
+    # plt.show()
     return G
 
 #-> Complete Bipartite Graph K8,8
@@ -87,7 +88,7 @@ def complete_bipartite_graph_k_nn(n):
     nx.draw(G, pos, with_labels=True, node_color=['lightcoral'] * n + ['lightblue'] * n,
             edge_color='gray', node_size=300)
     plt.title("Complete Bipartite Graph K{},{}".format(n,n))
-    plt.show()
+    # plt.show()
     return G
 
 # Star Graph S16
@@ -97,7 +98,7 @@ def star_graph_s16():
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=True, node_color='gold', edge_color='gray', node_size=300)
     plt.title("Star Graph S16")
-    plt.show()
+    # plt.show()
     return G
 
 # Grid Graph 8x4
@@ -107,7 +108,7 @@ def grid_graph_8x4():
     pos = {node: node for node in G.nodes()}
     nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=300)
     plt.title("Grid Graph 8x4")
-    plt.show()
+    # plt.show()
     return G
 
 # Grid Graph 8x4
@@ -117,7 +118,7 @@ def grid_graph_nxm(n,m):
     pos = {node: node for node in G.nodes()}
     nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=300)
     plt.title("Grid Graph {}x{}".format(n,m))
-    plt.show()
+    # plt.show()
     return G
 
 
@@ -128,7 +129,7 @@ def regular_graph_4_8():
     pos = nx.circular_layout(G)
     nx.draw(G, pos, with_labels=True, node_color='lightgreen', edge_color='gray', node_size=500)
     plt.title("4-Regular Graph with 8 Vertices")
-    plt.show()
+    # plt.show()
     return G
 
 #-> Cubic (3-Regular) Graph with 16 Vertices
@@ -138,7 +139,7 @@ def cubic_graph_3_16():
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=True, node_color='lightcoral', edge_color='gray', node_size=300)
     plt.title("Cubic (3-Regular) Graph with 16 Vertices")
-    plt.show()
+    # plt.show()
     return G
 
 # Disjoint Union of Four C4 Cycles
@@ -155,7 +156,7 @@ def disjoint_union_c4():
         shift_x += 3
     nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=300)
     plt.title("Disjoint Union of Four C4 Cycles")
-    plt.show()
+    # plt.show()
     return G
 
 # Complete Bipartite Graph K16,16
@@ -166,7 +167,7 @@ def complete_bipartite_graph_k1616():
     nx.draw(G, pos, with_labels=False, node_color=['lightcoral'] * 16 + ['lightblue'] * 16,
             edge_color='gray', node_size=100)
     plt.title("Complete Bipartite Graph K16,16")
-    plt.show()
+    # plt.show()
     return G
 
 # 5-Dimensional Hypercube Graph Q5
@@ -176,7 +177,7 @@ def hypercube_graph_q5():
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=False, node_color='lightgreen', edge_color='gray', node_size=200)
     plt.title("5-Dimensional Hypercube Graph Q5")
-    plt.show()
+    # plt.show()
     return G
 
 # Tree Graph with 8 Vertices
@@ -187,7 +188,7 @@ def tree_graph_8():
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=300)
     plt.title("Tree Graph with 8 Vertices")
-    plt.show()
+    # plt.show()
     return G
 
 # Wheel Graph W16
@@ -197,7 +198,7 @@ def wheel_graph_w16():
     pos = nx.circular_layout(G)
     nx.draw(G, pos, with_labels=True, node_color='lightcoral', edge_color='gray', node_size=300)
     plt.title("Wheel Graph W16")
-    plt.show()
+    # plt.show()
     return G
 
 #-> Random Connected Graph with 16 Vertices
@@ -212,7 +213,7 @@ def random_connected_graph_16(p=0.15):
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=False, node_color='lightgreen', edge_color='gray', node_size=100)
     plt.title("Random Connected Graph with 16 Vertices")
-    plt.show()
+    # plt.show()
     return G
 
 # Expander Graph with 32 Vertices
@@ -222,7 +223,7 @@ def expander_graph_32():
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=False, node_color='lightblue', edge_color='gray', node_size=100)
     plt.title("Expander Graph with 32 Vertices")
-    plt.show()
+    # plt.show()
     return G
 
 #-> Expander Graph with n Vertices
@@ -232,7 +233,7 @@ def expander_graph_n(n):
     pos = nx.spring_layout(G, seed=42)
     nx.draw(G, pos, with_labels=False, node_color='lightblue', edge_color='gray', node_size=100)
     plt.title("Expander Graph with {} Vertices".format(n))
-    plt.show()
+    # plt.show()
     return G
 
 # Planar Connected Graph with 16 Vertices
@@ -248,7 +249,7 @@ def planar_connected_graph_16():
     nx.draw(G, pos, with_labels=False, node_color='lightcoral', edge_color='gray', node_size=100)
     plt.title("Planar Connected Graph with 16 Vertices")
     plt.axis('equal')
-    plt.show()
+    # plt.show()
     return G
 
 # endregion
