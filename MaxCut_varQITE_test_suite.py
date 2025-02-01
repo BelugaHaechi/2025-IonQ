@@ -535,9 +535,13 @@ def interpret_solution(graph, bitstring):
 # region 2c. CALL Q.I.T.E MINIMIZER (!!params to optimize: num_steps, lr)
 ## ----------------------------------
 
+print("Running: QITEvolver Minimization\n")
+
 # Set up your QITEvolver and evolve!
 qit_evolver = QITEvolver(ham, ansatz)
-qit_evolver.evolve(num_steps=40, lr=0.1, verbose=True) # lr was 0.4
+qit_evolver.evolve(num_steps=1, lr=0.1, verbose=True) # lr was 0.4
+
+print("\nCompleted: QITEvolver Minimization\n")
 
 # Visualize your results!
 qit_evolver.plot_convergence()
@@ -574,8 +578,10 @@ best_bs = cut_vals[-1][0]
 # We'll leave this part up to you!!! --Done (Daniel Lai)
 most_likely_soln = max(counts, key=counts.get)
 
+print("Quantum Circuit Sample. Size:", shots)
 print(counts)
-print(most_likely_soln, max(counts.values()))
+print("Most Likely Solution Found:")
+print(most_likely_soln, "Frequency:", max(counts.values()))
 
 
 # endregion
@@ -650,21 +656,20 @@ for b in range(2**n):
 
 
 # This is classical brute force solver results:
-interpret_solution(graph, xbest_brute)
-print(graph, xbest_brute)
+
+print("\nClassical Brute Force Solver Results")
+
+# interpret_solution(graph, xbest_brute)
 print("\nBest solution = " + str(xbest_brute) + " cost = " + str(best_cost_brute))
 print(XS_brut)
 
-interpret_solution(graph, xbest_balanced)
-print(graph, xbest_balanced)
+# interpret_solution(graph, xbest_balanced)
 print("\nBest balanced = " + str(xbest_balanced) + " cost = " + str(best_cost_balanced))
 print(XS_balanced)
 
-interpret_solution(graph, xbest_connected)
-print(graph, xbest_connected)
+# interpret_solution(graph, xbest_connected)
 print("\nBest connected = " + str(xbest_connected) + " cost = " + str(best_cost_connected))
 print(XS_connected)
-plt.show()
 
 # endregion
 
@@ -680,17 +685,20 @@ def final_score(graph, XS_brut,counts,shots,ansatz,challenge):
         for bs in counts:
             if bs in XS_brut:
                 sum_counts += counts[bs]
+        print(f"Pure max-cut: {sum_counts} out of {shots}")
     elif(challenge=='balanced'):
         sum_balanced_counts = 0
         for bs in counts:
             if bs in XS_balanced:
-                sum_balanced_counts += counts[bs]        
+                sum_balanced_counts += counts[bs]
+        print(f"Balanced max-cut: {sum_balanced_counts} out of {shots}")
         sum_counts = sum_balanced_counts
     elif(challenge=='connected'):
         sum_connected_counts = 0
         for bs in counts:
             if bs in XS_connected:
                 sum_connected_counts += counts[bs]
+        print(f"Connected max-cut: {sum_connected_counts} out of {shots}")
         sum_counts = sum_connected_counts
 
     
@@ -701,9 +709,13 @@ def final_score(graph, XS_brut,counts,shots,ansatz,challenge):
     return np.round(score,5)
 
 
+print("\nSummary of Final Score\n")
+
 print("Base score: " + str(final_score(graph,XS_brut,counts,shots,ansatz,'base')))
 print("Balanced score: " + str(final_score(graph,XS_brut,counts,shots,ansatz,'balanced')))
 print("Connected score: " + str(final_score(graph,XS_brut,counts,shots,ansatz,'connected')))
+
+print("\nJob Done at", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
 
 # endregion
