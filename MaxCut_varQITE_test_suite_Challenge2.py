@@ -269,10 +269,11 @@ graph7 = expander_graph_n(16)
 
 graph = graph4
 
-balanced = False  
-dfs_ansatz = True 
-n_steps = 60
+balanced = True
+dfs_ansatz = False
+n_steps = 50
 lr = 0.5
+conv_epsilon = 0.0010
 
 ## ----------------------------------
 # region 1b. ANSATZ (INITIAL VALUE; !!optimize this)
@@ -491,7 +492,8 @@ class QITEvolver:
         self.num_shots = 10000
         self.energies, self.param_vals, self.runtime = list(), list(), list()
 
-    def evolve(self, num_steps: int, lr: float = 0.4, verbose: bool = True):
+    def evolve(self, num_steps: int, lr: float = 0.4, \
+               verbose: bool = True, conv_epsilon: float = -1):
         """
         Evolve the variational quantum state encoded by ``self.ansatz`` under
         the action of ``self.hamiltonian`` according to varQITE.
@@ -516,6 +518,12 @@ class QITEvolver:
             self.energies.append(curr_energy)
             self.param_vals.append(curr_params.copy())
             self.runtime.append(quantum_exec_time)
+
+            # ADD: Convergence success if past 5 change is small enough
+            if conv_epsilon > 0 and k > 5:
+                if abs(self.energies[-1] - self.energies[-5]) < conv_epsilon:
+                    print("Converged before exhausting num_steps, past 5 threshold:", conv_epsilon)
+                    break
 
     def get_defining_ode(self, measurements: List[dict[str, int]]):
         """
@@ -678,7 +686,7 @@ print("Running: QITEvolver Minimization\n")
 
 # Set up your QITEvolver and evolve!
 qit_evolver = QITEvolver(ham, ansatz)
-qit_evolver.evolve(num_steps=n_steps, lr=lr, verbose=True) # lr was 0.4
+qit_evolver.evolve(num_steps=n_steps, lr=lr, verbose=True, conv_epsilon=conv_epsilon) # lr was 0.4
 
 print("\nCompleted: QITEvolver Minimization\n")
 
