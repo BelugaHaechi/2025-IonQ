@@ -319,7 +319,7 @@ def run_challenge(graph_num: int=4, balanced: bool=True, dfs: bool=True, \
 
     # endregion
 
-    graph = graphs[4]
+    graph = graphs[graph_num]
 
     balanced = balanced
     dfs_ansatz = dfs
@@ -958,6 +958,50 @@ def run_challenge(graph_num: int=4, balanced: bool=True, dfs: bool=True, \
 
 
 ######### BATCH TESTIING REGION ##########
+ENABLE_BALANCED_HAMILTONIAN = True
+ENABLE_DFS_OPTIMIZED_ANSATZ = True
+
+minization = []
+all_scores = []
+for graph_num in range(1,9):
+    print('\n================================\n')
+    print(f'EXECUTING CASE FOR GRAPH {graph_num} OF 8\n')
+    energies, scores = run_challenge(graph_num, ENABLE_BALANCED_HAMILTONIAN, ENABLE_DFS_OPTIMIZED_ANSATZ, \
+                                     n_steps=40, lr=0.5, conv_epsilon=0.001)
+    minization.append((len(energies), energies[-1]))
+    all_scores.append(scores)
+
+print('\n================================\n')
+print('CONDITIONS:')
+print('Balanced Hamiltonian: ', ENABLE_BALANCED_HAMILTONIAN)
+print('DFS-optimized ansatz: ', ENABLE_DFS_OPTIMIZED_ANSATZ)
+
+print('\nALL SCORES:')
+print(f'{1:<7} {2:<7} {3:<7}')
+for c1, c2, c3 in all_scores:
+    print(f'{c1:<7} {c2:<7} {c3:<7}')
+
+# EXPORT
+import csv
+file_name = "output.csv"
+log_name = "log.txt"
+
+# Writing to the CSV file
+with open(file_name, mode='w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(all_scores)
+
+print(f"Final scores written to {file_name}")
+
+# Save the list to a text file
+with open(log_name, 'w') as f:
+    for item in minization:
+        f.write(f'{item[1]} in {item[0]} steps')
+
+print(f"Minimization log saved to {log_name}")
+
+import time
+print("\nAll Done at", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
 
 ## ==========================================
