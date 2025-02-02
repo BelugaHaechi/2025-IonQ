@@ -254,20 +254,69 @@ def planar_connected_graph_16():
 
 # endregion
 
+def duketree_graph():
+    duke = [
+        (0,0),
+        (70,110),
+        (70,370),
+        (0,480),
+        (290,480),
+        (450,480),
+        (530,370),
+        (530,110),
+        (450,0),
+        (290,0),
+        (350,110),
+        (350,370),
+        (240,370),
+        (240,110),
+        (140,0)
+    ]
+    G = nx.Graph()
+    G.add_nodes_from(range(len(duke)))
+    G.add_edges_from(
+        [(x,x+1) for x in range(9)] + [
+            (9,0),
+            (14,13),
+            (13,1),
+            (1,12),
+            (12,2),
+            (2,4),
+            (4,6),
+            (6,11),
+            (11,7),
+            (7,10),
+            (10,8)
+        ] + [
+            (9,13),
+            (13,12),
+            (12,4),
+            (4,11),
+            (11,10),
+            (10,9)
+        ]
+    )
+    pos = dict(zip(range(len(duke)),duke))
+    # nx.draw(G, pos=pos, with_labels=True, font_color="white")
+    # plt.show()
+    return G
+
 # Choose your favorite graph and build your winning ansatz!
 
-graph1 = cycle_graph_c8() 
-graph2 = complete_bipartite_graph_k88() 
-graph3 = complete_bipartite_graph_k_nn(5) 
-graph4 = regular_graph_4_8() 
-graph5 = cubic_graph_3_16() 
-graph6 = random_connected_graph_16(p=0.18)
-graph7 = expander_graph_n(16) 
-#graph8 = -> make your own cool graph
+graphs = [star_graph_s16(), # graph0 test case
+cycle_graph_c8(),
+complete_bipartite_graph_k88(),
+complete_bipartite_graph_k_nn(5),
+regular_graph_4_8(), # graph4 that's nice
+cubic_graph_3_16(),
+random_connected_graph_16(p=0.18),
+expander_graph_n(16),
+duketree_graph() # graph8 -> make your own cool graph
+]
 
 # endregion
 
-graph = graph4
+graph = graphs[4]
 
 balanced = True
 dfs_ansatz = False
