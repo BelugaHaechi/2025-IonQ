@@ -41,7 +41,7 @@ def run_challenge(graph_num: int=4, balanced: bool=True, dfs: bool=True, \
     ## ==========================================
 
     ## ----------------------------------
-    # region 1a. GRAPHS (PROBLEMS; TEST CASES; !!need to come up with graph8)
+    # region 1a. GRAPHS (PROBLEMS; TEST CASES)
     ## ----------------------------------
 
     # other graphs candidates to check
@@ -904,6 +904,9 @@ def run_challenge(graph_num: int=4, balanced: bool=True, dfs: bool=True, \
         cx_count = transpiled_ansatz.count_ops()['cx']
         score = (4*2*graph.number_of_edges())/(4*2*graph.number_of_edges() + cx_count) * sum_counts/shots
 
+        print('CNOT gate count:', cx_count)
+        print('Score CX-coefficient:', (4*2*graph.number_of_edges())/(4*2*graph.number_of_edges() + cx_count))
+
         return np.round(score,5)
 
     scores = (
@@ -958,12 +961,13 @@ def run_challenge(graph_num: int=4, balanced: bool=True, dfs: bool=True, \
 
 
 ######### BATCH TESTIING REGION ##########
-ENABLE_BALANCED_HAMILTONIAN = True
+ENABLE_BALANCED_HAMILTONIAN = False
 ENABLE_DFS_OPTIMIZED_ANSATZ = True
+# arxiv: 2106.02812
 
 minization = []
 all_scores = []
-for graph_num in range(1,9):
+for graph_num in range(4,5):
     print('\n================================\n')
     print(f'EXECUTING CASE FOR GRAPH {graph_num} OF 8\n')
     energies, scores = run_challenge(graph_num, ENABLE_BALANCED_HAMILTONIAN, ENABLE_DFS_OPTIMIZED_ANSATZ, \
